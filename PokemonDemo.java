@@ -8,24 +8,26 @@ public class PokemonDemo extends Thread implements Runnable
 	boolean done = false;
 	final static String url = "music/pokemon.wav";
 
-	
-	static Runnable r1 = new Runnable(){public void run()
-	{	
-    	try 
-   		{
-      		Clip clip = AudioSystem.getClip();
-      		AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(url));
-      		PokemonDemo control = new PokemonDemo();
-      		clip.open(inputStream);
-      		clip.start();
-   		}
-   		catch (Exception e) 
-   		{
-   	 		System.err.println(e.getMessage());
-    	}
-		}
-	};
-
+			//Old style of multithreading
+				/*	static Runnable r1 = new Runnable(){public void run()
+				{	
+					try 
+					{
+						Clip clip = AudioSystem.getClip();
+						AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(url));
+						PokemonDemo control = new PokemonDemo();
+						clip.open(inputStream);
+						clip.start();
+					}
+					catch (Exception e) 
+					{
+						System.err.println(e.getMessage());
+					}
+					}
+				};
+			*/
+		
+	static Thread mainThread;
 	
 	public static void main(String [] args)
 	{
@@ -37,9 +39,34 @@ public class PokemonDemo extends Thread implements Runnable
 		Icon icon3 = new ImageIcon("images/oakwithnidoranf.jpg");
 		Icon icon4 = null; //This is for the player's gender -- the image changes based on their response.
 		Icon icon5 = new ImageIcon("images/rival.jpg");
-		Thread thr1 = new Thread(r1);
 		
-		thr1.start();
+				//Thread thr1 = new Thread(r1);
+				//Old Style of multithreading
+				
+		mainThread = new Thread(() -> //the () -> this is a lambda expression. Thread knows it needs runnable --> Runnable only has one method, and the lambda expression takes its place.
+		{
+			try 
+			{
+			      Clip clip = AudioSystem.getClip();
+			      AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(url));
+			      PokemonDemo control = new PokemonDemo();
+			      clip.open(inputStream);
+				  while(true)
+				  {
+			     	 clip.start();
+			      }
+			}
+			catch (Exception e) 
+			{
+				System.err.println(e.getMessage());
+			}
+		});
+		
+		mainThread.start();
+		
+				//thr1.start();
+				//Old way of multithreading
+				
 		Pokemon intro = new Pokemon();
 		
 		JOptionPane.showMessageDialog(null, "Hello there!", "Oak", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -171,4 +198,5 @@ public class PokemonDemo extends Thread implements Runnable
    	 	System.exit(0);
 	}
 }
+
 
