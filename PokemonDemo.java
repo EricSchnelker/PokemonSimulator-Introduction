@@ -5,7 +5,6 @@ import java.awt.*;
 
 public class PokemonDemo extends Thread implements Runnable
 {
-	boolean done = false;
 	final static String url = "music/pokemon.wav";
 		
 	static Thread mainThread;
@@ -21,9 +20,6 @@ public class PokemonDemo extends Thread implements Runnable
 			
 	public static void main(String [] args)
 	{
-
-
-
 		mainThread = new Thread(() -> //the () -> this is a lambda expression. Thread knows it needs runnable --> Runnable only has one method, and the lambda expression takes its place.
 		{
 			try 
@@ -32,8 +28,8 @@ public class PokemonDemo extends Thread implements Runnable
 			      AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(url));
 			      PokemonDemo control = new PokemonDemo();
 			      clip.open(inputStream);
-				  while(true)
-				  {
+			      while(true)
+			      {
 			     	 clip.start();
 			      }
 			}
@@ -45,8 +41,6 @@ public class PokemonDemo extends Thread implements Runnable
 		
 		mainThread.start();
 		
-
-		
 		BeginningInformation();
 		Gender();
 		Name();
@@ -54,7 +48,7 @@ public class PokemonDemo extends Thread implements Runnable
 		FinalInformation();
 	}
 	
-	public static void BeginningInformation()o
+	public static void BeginningInformation()
 	{
 		JOptionPane.showMessageDialog(null, "Hello there!", "Oak", JOptionPane.INFORMATION_MESSAGE, icon);
 		JOptionPane.showMessageDialog(null, "Glad to meet you!", "Oak", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -100,8 +94,7 @@ public class PokemonDemo extends Thread implements Runnable
    			else if(intro.getGender().equals("Girl"))
    			{
    				holder = "girl";
-   				intro.setGender(holder);
-   				
+   				intro.setGender(holder);	
    			}
    		
 			response = JOptionPane.showConfirmDialog(null, "You are a " + intro.getGender() + ". Is that correct?", "Oak", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, icon4);
@@ -112,12 +105,12 @@ public class PokemonDemo extends Thread implements Runnable
 			} 
 			else if(response == JOptionPane.YES_OPTION) 
 			{
-    			intro.setConfirmationOne("yes");
+    				intro.setConfirmationOne("yes");
 			}
-    		else
+    			else
 			{
-    		 	System.exit(0);
-    		}
+    		 		System.exit(0);
+    			}
    		}while(intro.getConfirmationOne().equals("no"));
 	}
 	
@@ -136,53 +129,54 @@ public class PokemonDemo extends Thread implements Runnable
    					holder = (String)JOptionPane.showInputDialog(null, "What is it?", "Oak", JOptionPane.INFORMATION_MESSAGE, icon4, null, "");
    					intro.setPlayerName(holder);
    			}
-   					response = JOptionPane.showConfirmDialog(null, "Right... so your name is " + intro.getPlayerName() + ".", "Oak", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, icon4);
+			
+   			response = JOptionPane.showConfirmDialog(null, "Right... so your name is " + intro.getPlayerName() + ".", "Oak", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, icon4);
    					
-   					if(response == JOptionPane.NO_OPTION) 
-   					{
-						 intro.setConfirmationTwo("no");
-   					} 
-					 else if(response == JOptionPane.YES_OPTION) 
-					{
-    					intro.setConfirmationTwo("yes");
-    				}
-    				 else
-    				{
-    				 	System.exit(0);
-    				}
+   			if(response == JOptionPane.NO_OPTION) 
+			{
+				 intro.setConfirmationTwo("no");
+			} 
+			else if(response == JOptionPane.YES_OPTION) 
+			{
+				intro.setConfirmationTwo("yes");
+    			}
+    			else
+    			{
+    				System.exit(0);
+    			}
    		}while(intro.getConfirmationTwo().equals("no"));
 	}
 	
 	public static void Rival()
 	{
    		JOptionPane.showMessageDialog(null, "This is my grandson.", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5);
-    	JOptionPane.showMessageDialog(null, "He's been your rival since you both were babies.", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5);
+    		JOptionPane.showMessageDialog(null, "He's been your rival since you both were babies.", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5);
     
-    	do
-    	{		
-    		holder = (String)JOptionPane.showInputDialog(null, "...Erm, what was his name now?", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5, null, "");
-    		intro.setRivalName(holder);
-    		
-    		while(holder == null || holder.equals("") || holder.length() == 0 || holder.isEmpty())
-   			{
-   					holder = (String)JOptionPane.showInputDialog(null, "...Erm, what was his name now?", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5, null, "");
-    				intro.setRivalName(holder);
-    		}
-    			
-    				response = JOptionPane.showConfirmDialog(null, "...Er, was it " + intro.getRivalName() + "?", "Oak", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, icon5);
-    				
-    				if(response == JOptionPane.NO_OPTION) 
-   					{
-						 intro.setConfirmationThree("no");
-   					} 
-					 else if(response == JOptionPane.YES_OPTION) 
-					{
-    					intro.setConfirmationThree("yes");
-    				}
-    				 else
-    				{
-    				 	System.exit(0);
-    				}
+		do
+		{		
+			holder = (String)JOptionPane.showInputDialog(null, "...Erm, what was his name now?", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5, null, "");
+			intro.setRivalName(holder);
+
+			while(holder == null || holder.equals("") || holder.length() == 0 || holder.isEmpty())
+			{
+				holder = (String)JOptionPane.showInputDialog(null, "...Erm, what was his name now?", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5, null, "");
+				intro.setRivalName(holder);
+			}
+
+			response = JOptionPane.showConfirmDialog(null, "...Er, was it " + intro.getRivalName() + "?", "Oak", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, icon5);
+
+			if(response == JOptionPane.NO_OPTION) 
+			{
+				intro.setConfirmationThree("no");
+			} 
+			else if(response == JOptionPane.YES_OPTION) 
+			{
+				intro.setConfirmationThree("yes");
+			}
+			else
+			{
+				System.exit(0);
+    			}
    		}while(intro.getConfirmationThree().equals("no"));
    		
    		JOptionPane.showMessageDialog(null, "That's right! I remember now! His name is " + intro.getRivalName() + "!", "Oak", JOptionPane.INFORMATION_MESSAGE, icon5);
